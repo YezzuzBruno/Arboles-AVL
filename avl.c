@@ -1,6 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include "avl.h"
+#include <assert.h>
 
 int max(int a, int b){
   return (a > b) ? a : b;
@@ -54,15 +55,21 @@ int isAVL(struct AVL* node){
 
 struct AVL* leftRotation(struct AVL* X){
   assert(X != NULL);
-  AVL* Y = X->right;
-  AVL* parentX = X->parent;//padre de x
-  AVL* B = Y->left; //hijo izquierdo de y
+  struct AVL* Y = X->right;
+  struct AVL* parentX = X->parent;//padre de x
+  assert(Y != NULL);
+
+
+  struct AVL* B = Y->left; //hijo izquierdo de y
+
   //cambios de los enlaces
+
   Y->left = X;
   X->parent = Y;
 
   X->right = B;
-  B->parent = X;
+  if(B)
+    B->parent = X;
   //cambiando enlaces con el padre
   if(parentX){
     if(parentX->left == X)
@@ -76,15 +83,17 @@ struct AVL* leftRotation(struct AVL* X){
 
 struct AVL* rightRotation(struct AVL* X){
   assert(X != NULL);
-  AVL* Y = X->left;
-  AVL* parentX = X->parent;
-  AVL* B = Y->right; 
+  struct AVL* Y = X->left;
+  struct AVL* parentX = X->parent;
+  assert(Y != NULL);
+  struct AVL* B = Y->right; 
   //cambios de los enlaces
   Y->right = X;
   X->parent = Y;
-
+  
   X->left = B;
-  B->parent = X;
+  if(B)
+    B->parent = X;
   //cambiando enlaces con el padre
   if(parentX){ //verificamos si el nodo es root
     if(parentX->left == X)

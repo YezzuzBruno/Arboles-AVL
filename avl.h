@@ -13,5 +13,6 @@ int height(struct AVL* node);
 int balanceFactor(struct AVL* node);
 int isAVL(struct AVL* node);
 struct AVL* leftRotation(struct AVL* node);
+struct AVL* rightRotation(struct AVL* node);
 #endif
 
